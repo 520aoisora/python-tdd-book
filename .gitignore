@@ -4,3 +4,5 @@ virtualenv
 geckodriver.exe
 __pycache__
 *.pyc
+.project
+.pydevproject
