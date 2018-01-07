@@ -3,6 +3,7 @@ from selenium.webdriver.common.keys import Keys
 import time
 import unittest
 
+
 class NewVisitorTest(unittest.TestCase):
 
     def setUp(self):
@@ -39,11 +40,8 @@ class NewVisitorTest(unittest.TestCase):
 
         table = self.browser.find_element_by_id('id_list_table')
         rows = table.find_elements_by_tag_name('tr')
-        self.assertTrue(
-            any(row.text == '1: Buy peacock feather' for row in rows),
-            "New to-do item did not appear in table"
-        )
-
+        self.assertIn('1: Buy peacock feather', [row.text for row in rows])
+        self.assertIn('2: Use peacock feathers to make a fly', [row.text for row in rows])
         # There is still a text box inviting her to add another item.
         # She enters "Use peacock feathers to make a fly"
         # (Weijia is very methodical)
@@ -58,6 +56,7 @@ class NewVisitorTest(unittest.TestCase):
         # She visits that URL - her to-do list is still there.
 
         # Satisfied, she goes back to sleep
+
 
 if __name__ == '__main__':
     unittest.main(warnings='ignore')
