@@ -4,7 +4,7 @@ from selenium.common.exceptions import WebDriverException
 from selenium.webdriver.common.keys import Keys
 import time
 
-MAX_WAIT = 10
+MAX_WAIT = 5
 
 
 class NewVisitorTest(LiveServerTestCase):
@@ -69,7 +69,6 @@ class NewVisitorTest(LiveServerTestCase):
     def test_multiple_users_can_start_lists_at_different_ruls(self):
         # Weijia starts a new to-do list
         self.browser.get(self.live_server_url)
-        self.browser.get(self.live_server_url)
 
         inputbox = self.browser.find_element_by_id('id_new_item')
         inputbox.send_keys('Buy peacock feathers')
@@ -85,7 +84,7 @@ class NewVisitorTest(LiveServerTestCase):
         # # We use a new browser session to make sure that no information
         # # of Weijia's is coming through from cookies etc
         self.browser.quit()
-        self.browser.webdriver.Firefox()
+        self.browser = webdriver.Firefox()
 
         # Yi visits the home page. There is no sign of Weijia's list
         self.browser.get(self.live_server_url)
