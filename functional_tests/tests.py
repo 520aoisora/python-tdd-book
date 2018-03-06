@@ -105,7 +105,7 @@ class NewVisitorTest(LiveServerTestCase):
         self.assertNotEqual(weijia_list_url, yi_list_url)
 
         # Again, there is no trace of Weijia's list
-        page_text = self.browser.find_element_by_tag_name('body').add_context
+        page_text = self.browser.find_element_by_tag_name('body').text
         self.assertNotIn('Buy peacock feathers', page_text)
         self.assertIn('Buy milk', page_text)
 
