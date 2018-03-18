@@ -25,7 +25,11 @@ SECRET_KEY = '1bz@z!4iet9-*_w%j)^4r5wbxw20ser=%i)+kx6hzm0x4584s_'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'localhost',
+    'staging.jiyi12345.co.uk',
+    'www.jiyi12345.co.uk'
+]
 
 # Application definition
 
