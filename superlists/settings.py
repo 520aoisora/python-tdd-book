@@ -30,11 +30,7 @@ else:
     # SECURITY WARNING: don't run with debug turned on in production!
     DEBUG = True
     
-    ALLOWED_HOSTS = [
-        'localhost',
-        'staging.jiyi12345.co.uk',
-        'www.jiyi12345.co.uk'
-    ]
+    ALLOWED_HOSTS = []
 
 # Application definition
 
