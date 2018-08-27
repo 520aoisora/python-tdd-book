@@ -3,9 +3,7 @@ from fabric.contrib.files import append, exists
 from fabric.api import cd, env, local, run
 
 REPO_URL = 'https://github.com/520aoisora/python-tdd-book.git'
-env.user = 'ubuntu'
 env.key_filename = ['ToDoList.pem']
-env.hosts = ['ec2-35-176-139-96.eu-west-2.compute.amazonaws.com']
 
 
 def deploy():
