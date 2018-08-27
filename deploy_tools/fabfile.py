@@ -3,6 +3,9 @@ from fabric.contrib.files import append, exists
 from fabric.api import cd, env, local, run
 
 REPO_URL = 'https://github.com/520aoisora/python-tdd-book.git'
+env.user = 'ubuntu'
+env.key_filename = ['ToDoList.pem']
+env.hosts = ['ec2-35-176-139-96.eu-west-2.compute.amazonaws.com']
 
 
 def deploy():
@@ -17,20 +20,22 @@ def deploy():
 
 
 def _get_latest_source():
-    run('mkdir -p source && cd source')
+    run('mkdir -p source')
 
-    if exists('.git'):
-        run('git fetch')
-    else:
-        run(f'git clone {REPO_URL} .')
-    current_commit = local("git log -n 1 --format=%H", capture=True)
-    run(f'git reset --hard {current_commit}')
+    with cd('source'):
+        if exists('.git'):
+            run('git fetch')
+        else:
+            run(f'git clone {REPO_URL} .')
+        current_commit = local("git log -n 1 --format=%H", capture=True)
+        run(f'git reset --hard {current_commit}')
 
 
 def _update_virtualenv():
     if not exists('virtualenv/bin/pip'):
         run(f'python3.6 -m venv virtualenv')
-    run('./virtualenv/bin/pip install -r ../source/requirements.txt')
+    run('./virtualenv/bin/pip install --upgrade pip')
+    run('./virtualenv/bin/pip install -r source/requirements.txt')
 
 
 def _create_or_update_dotenv():
@@ -45,8 +50,9 @@ def _create_or_update_dotenv():
 
 
 def _update_static_files():
-    run('./virtualenv/bin/python manage.py collectstatic --noinput')
+    run('./virtualenv/bin/python source/manage.py collectstatic --noinput')
 
 
 def _update_database():
-    run('./virtualenv/bin/python manage.py migrate --noinput')
+    run('mkdir -p database')
+    run('./virtualenv/bin/python source/manage.py migrate --noinput')
