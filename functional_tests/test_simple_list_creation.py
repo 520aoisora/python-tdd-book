@@ -61,6 +61,7 @@ class NewVisitorTest(FunctionalTest):
 
         # # We use a new browser session to make sure that no information
         # # of Weijia's is coming through from cookies etc
+        self.browser.refresh()
         self.browser.quit()
         self.browser = webdriver.Chrome()
 
